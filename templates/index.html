@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klasifikasi Permasalahan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column; /* Change to column for header and container */
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #D1E9FF, #A6EDC9);
+        }
+        header {
+            width: 100%; /* Full width header */
+            padding: 20px;
+            background-color: #F59E0B; /* Background color for header */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for header */
+            border-radius: 0 0 8px 8px; /* Rounded corners only at the bottom */
+            text-align: left; /* Left align the text */
+        }
+        h1.header-title {
+            font-size: 1.5rem; /* Font size for the header title */
+            color: #3B82F6; /* Blue color */
+            margin: 0; /* Remove default margin */
+            padding-left: 30px; /* Indentation effect for header title */
+        }
+        h1.container-title {
+            font-size: 1.5rem; /* Font size for container title */
+            color: #3B82F6; /* Blue color */
+            margin: 0; /* Remove default margin */
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            transition: transform 0.3s;
+            margin-top: 20px; /* Space between header and container */
+        }
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        .description-container {
+            background-color: #F9FAFB; /* Light background for description box */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            margin-bottom: 20px; /* Space between description and input box */
+            width: 100%; /* Full width for the description box */
+            max-width: 1300px; /* Match max width of the other boxes */
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #374151;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #D1D5DB;
+            border-radius: 4px;
+            resize: none;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #FBBF24;
+            color: #4B5563;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #F59E0B;
+        }
+        .result {
+            margin-top: 20px;
+            display: none;
+        }
+        .result h3 {
+            font-size: 1.5rem;
+            color: #3B82F6;
+            margin-bottom: 10px;
+        }
+        .result p {
+            color: #374151;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="header-title">Nexus Team</h1>
+    </header>
+
+    <div class="description-container">
+        <p>Website ini dirancang untuk memberikan rekomendasi Pasal yang berkaitan pada <strong>Undang-Undang 23 Tahun 2002 tentang Perlindungan Anak</strong> berdasarkan permasalahan yang Anda input. Dengan memasukkan deskripsi permasalahan, sistem kami akan menganalisis dan memberikan pasal yang relevan untuk membantu Anda memahami hak-hak dan perlindungan yang diatur dalam undang-undang tersebut.</p>
+        <p>Silakan masukkan deskripsi permasalahan Anda di bawah ini untuk mendapatkan hasil rekomendasi Pasal yang berkaitan ....</p>
+    </div>
+
+    <div class="container">
+        <h1 class="container-title">Klasifikasi Permasalahan</h1>
+        
+        <form action="/" method="POST">
+            <div class="input-group">
+                <label for="input_text">Deskripsi Permasalahan:</label>
+                <textarea id="input_text" name="input_text" rows="4" required></textarea>
+            </div>
+            <button type="submit">Klasifikasi</button>
+        </form>
+
+        {% if result %}
+        <div class="result" style="display: block;">
+            <h3>Hasil Rekomendasi</h3>
+            <p><strong>Permasalahan:</strong> {{ input_text }}</p>
+            <p><strong>Rekomendasi Pasal:</strong></p>
+            <div id="recommendationList">
+                {% for pred in result %}
+                <p>{{ pred }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
